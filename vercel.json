@@ -1,5 +1,4 @@
 {
-  "engines": {
-    "node": "20.x"
-  }
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next"
 }
