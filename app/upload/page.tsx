@@ -23,18 +23,18 @@ const DOC_TYPES = [
     icon: Stethoscope,
     label: "Medical Bill",
     description: "Hospital, clinic, or provider bill",
-    color: "text-red-400",
-    border: "border-red-700/40",
-    bg: "bg-red-700/10",
+    color: "text-orange-400",
+    border: "border-orange-500/40",
+    bg: "bg-orange-500/10",
   },
   {
     id: "insurance_denial",
     icon: FileX,
     label: "Insurance Denial",
     description: "Denial letter or Explanation of Benefits (EOB)",
-    color: "text-stone-200",
-    border: "border-stone-300/40",
-    bg: "bg-stone-300/10",
+    color: "text-amber-300",
+    border: "border-amber-400/40",
+    bg: "bg-amber-400/10",
   },
   {
     id: "lease",
@@ -50,9 +50,9 @@ const DOC_TYPES = [
     icon: FileQuestion,
     label: "Other Document",
     description: "Contract, bill, notice, or other document",
-    color: "text-slate-400",
-    border: "border-slate-600",
-    bg: "bg-slate-800",
+    color: "text-zinc-400",
+    border: "border-zinc-600",
+    bg: "bg-zinc-800",
   },
 ] as const;
 
@@ -163,7 +163,7 @@ export default function UploadPage() {
         <h1 className="text-4xl font-extrabold text-white mb-3">
           Analyze Your Document
         </h1>
-        <p className="text-slate-400 text-lg">
+        <p className="text-zinc-400 text-lg">
           Upload a photo or scan and our AI will audit it for red flags in seconds.
         </p>
       </div>
@@ -171,7 +171,7 @@ export default function UploadPage() {
       {/* Step 1: Document Type */}
       <div className="mb-8">
         <h2 className="text-white font-semibold text-lg mb-4 flex items-center gap-2">
-          <span className="bg-red-800 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+          <span className="bg-orange-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
             1
           </span>
           What type of document is this?
@@ -187,17 +187,17 @@ export default function UploadPage() {
                 "relative p-4 rounded-xl border-2 text-left transition-all duration-200 hover:-translate-y-0.5",
                 docType === id
                   ? `${border} ${bg}`
-                  : "border-slate-800 bg-slate-900 hover:border-slate-600"
+                  : "border-zinc-800 bg-zinc-900 hover:border-zinc-600"
               )}
             >
               {docType === id && (
                 <CheckCircle2 className={`absolute top-2 right-2 w-4 h-4 ${color}`} />
               )}
-              <Icon className={`w-6 h-6 ${docType === id ? color : "text-slate-500"} mb-2`} />
-              <div className={`font-semibold text-sm ${docType === id ? "text-white" : "text-slate-300"}`}>
+              <Icon className={`w-6 h-6 ${docType === id ? color : "text-zinc-500"} mb-2`} />
+              <div className={`font-semibold text-sm ${docType === id ? "text-white" : "text-zinc-300"}`}>
                 {label}
               </div>
-              <div className="text-slate-500 text-xs mt-0.5 leading-tight">{description}</div>
+              <div className="text-zinc-500 text-xs mt-0.5 leading-tight">{description}</div>
             </button>
           ))}
         </div>
@@ -206,7 +206,7 @@ export default function UploadPage() {
       {/* Step 2: Upload */}
       <div className="mb-8">
         <h2 className="text-white font-semibold text-lg mb-4 flex items-center gap-2">
-          <span className="bg-red-800 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+          <span className="bg-orange-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
             2
           </span>
           Upload your document
@@ -218,35 +218,35 @@ export default function UploadPage() {
             className={clsx(
               "border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all duration-200",
               isDragActive
-                ? "border-red-700 bg-red-700/5"
-                : "border-slate-700 bg-slate-900 hover:border-slate-500 hover:bg-slate-800/50"
+                ? "border-orange-500 bg-orange-500/5"
+                : "border-zinc-700 bg-zinc-900 hover:border-zinc-500 hover:bg-zinc-800/50"
             )}
           >
             <input {...getInputProps()} />
             <div className="flex justify-center mb-4">
-              <div className="bg-red-700/10 border border-red-700/20 rounded-2xl p-4">
-                <Upload className="w-10 h-10 text-red-400" />
+              <div className="bg-orange-500/10 border border-orange-500/20 rounded-2xl p-4">
+                <Upload className="w-10 h-10 text-orange-400" />
               </div>
             </div>
             <p className="text-white font-semibold text-lg mb-1">
               {isDragActive ? "Drop it here!" : "Drag & drop your document"}
             </p>
-            <p className="text-slate-400 text-sm mb-4">or click to browse your files</p>
-            <p className="text-slate-600 text-xs">
+            <p className="text-zinc-400 text-sm mb-4">or click to browse your files</p>
+            <p className="text-zinc-600 text-xs">
               Supports JPG, PNG, WEBP, HEIC, PDF · Max 10MB
             </p>
           </div>
         ) : (
-          <div className="card border-slate-700">
+          <div className="card border-zinc-700">
             <div className="flex items-start gap-4">
               {preview && (
-                <div className="w-20 h-20 rounded-lg overflow-hidden bg-slate-800 border border-slate-700 shrink-0">
+                <div className="w-20 h-20 rounded-lg overflow-hidden bg-zinc-800 border border-zinc-700 shrink-0">
                   {preview.startsWith("data:image") ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={preview} alt="Document preview" className="w-full h-full object-cover" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
-                      <ImageIcon className="w-8 h-8 text-slate-500" />
+                      <ImageIcon className="w-8 h-8 text-zinc-500" />
                     </div>
                   )}
                 </div>
@@ -255,22 +255,22 @@ export default function UploadPage() {
                 <div className="flex items-start justify-between gap-2">
                   <div>
                     <p className="text-white font-medium truncate">{file.name}</p>
-                    <p className="text-slate-500 text-sm mt-0.5">
+                    <p className="text-zinc-500 text-sm mt-0.5">
                       {(file.size / 1024 / 1024).toFixed(2)} MB · Ready to analyze
                     </p>
                   </div>
                   <button
                     onClick={clearFile}
                     disabled={isLoading}
-                    className="text-slate-500 hover:text-white transition-colors p-1"
+                    className="text-zinc-500 hover:text-white transition-colors p-1"
                     aria-label="Remove file"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
                 <div className="flex items-center gap-2 mt-2">
-                  <CheckCircle2 className="w-4 h-4 text-stone-200" />
-                  <span className="text-stone-200 text-sm">File ready</span>
+                  <CheckCircle2 className="w-4 h-4 text-amber-300" />
+                  <span className="text-amber-300 text-sm">File ready</span>
                 </div>
               </div>
             </div>
@@ -278,7 +278,7 @@ export default function UploadPage() {
         )}
 
         {error && (
-          <div className="mt-3 flex items-center gap-2 text-red-400 text-sm">
+          <div className="mt-3 flex items-center gap-2 text-orange-400 text-sm">
             <AlertCircle className="w-4 h-4 shrink-0" />
             {error}
           </div>
@@ -287,9 +287,9 @@ export default function UploadPage() {
 
       {/* Loading / Progress */}
       {isLoading && (
-        <div className="card border-red-700/30 bg-red-700/5 mb-8 animate-fade-in">
+        <div className="card border-orange-500/30 bg-orange-500/5 mb-8 animate-fade-in">
           <div className="flex flex-col items-center text-center py-4">
-            <Loader2 className="w-10 h-10 text-red-400 animate-spin mb-4" />
+            <Loader2 className="w-10 h-10 text-orange-400 animate-spin mb-4" />
             <p className="text-white font-semibold text-lg mb-6">
               Your AI advocate is working...
             </p>
@@ -300,10 +300,10 @@ export default function UploadPage() {
                   className={clsx(
                     "flex items-center gap-3 text-sm transition-all duration-500",
                     i < stepIndex
-                      ? "text-stone-200"
+                      ? "text-amber-300"
                       : i === stepIndex
                       ? "text-white"
-                      : "text-slate-600"
+                      : "text-zinc-600"
                   )}
                 >
                   {i < stepIndex ? (
@@ -311,7 +311,7 @@ export default function UploadPage() {
                   ) : i === stepIndex ? (
                     <Loader2 className="w-4 h-4 shrink-0 animate-spin" />
                   ) : (
-                    <div className="w-4 h-4 rounded-full border border-slate-700 shrink-0" />
+                    <div className="w-4 h-4 rounded-full border border-zinc-700 shrink-0" />
                   )}
                   {label}
                 </div>
@@ -323,9 +323,9 @@ export default function UploadPage() {
 
       {/* Done state */}
       {state === "done" && (
-        <div className="card border-stone-300/30 bg-stone-300/5 mb-8 text-center animate-fade-in">
-          <CheckCircle2 className="w-10 h-10 text-stone-200 mx-auto mb-3" />
-          <p className="text-stone-200 font-semibold">Analysis complete! Redirecting to your Battle Plan...</p>
+        <div className="card border-amber-400/30 bg-amber-400/5 mb-8 text-center animate-fade-in">
+          <CheckCircle2 className="w-10 h-10 text-amber-300 mx-auto mb-3" />
+          <p className="text-amber-300 font-semibold">Analysis complete! Redirecting to your Battle Plan...</p>
         </div>
       )}
 
@@ -337,8 +337,8 @@ export default function UploadPage() {
           className={clsx(
             "w-full py-4 rounded-xl font-semibold text-lg transition-all duration-200",
             file
-              ? "bg-red-800 hover:bg-red-700 text-white shadow-lg shadow-red-950/30 hover:shadow-red-900/40 hover:-translate-y-0.5"
-              : "bg-slate-800 text-slate-500 cursor-not-allowed"
+              ? "bg-orange-600 hover:bg-orange-500 text-white shadow-lg shadow-orange-950/30 hover:shadow-orange-900/40 hover:-translate-y-0.5"
+              : "bg-zinc-800 text-zinc-500 cursor-not-allowed"
           )}
         >
           Analyze My Document →
@@ -346,7 +346,7 @@ export default function UploadPage() {
       )}
 
       {/* Privacy note */}
-      <p className="text-slate-600 text-xs text-center mt-4 leading-relaxed">
+      <p className="text-zinc-600 text-xs text-center mt-4 leading-relaxed">
         Your document is sent securely to OpenAI&apos;s API and is not stored by FairPrint.
         Redact any sensitive personal info (SSN, account numbers) before uploading.
       </p>

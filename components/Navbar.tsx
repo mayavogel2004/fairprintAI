@@ -18,18 +18,18 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
+    <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 font-bold text-xl text-white hover:text-red-400 transition-colors"
+            className="flex items-center gap-2.5 font-bold text-xl text-white hover:text-orange-400 transition-colors"
           >
-            <div className="bg-red-800 rounded-lg p-1.5">
+            <div className="bg-orange-600 rounded-lg p-1.5">
               <Shield className="w-5 h-5 text-white" />
             </div>
-            Fair<span className="text-red-400">Print</span>
+            Fair<span className="text-orange-400">Print</span>
           </Link>
 
           {/* Desktop links */}
@@ -41,8 +41,8 @@ export default function Navbar() {
                 className={clsx(
                   "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
                   pathname === href
-                    ? "text-red-400 bg-red-700/10"
-                    : "text-slate-300 hover:text-white hover:bg-slate-800"
+                    ? "text-orange-400 bg-orange-500/10"
+                    : "text-zinc-300 hover:text-white hover:bg-zinc-800"
                 )}
               >
                 {label}
@@ -60,7 +60,7 @@ export default function Navbar() {
 
           {/* Mobile menu toggle */}
           <button
-            className="md:hidden text-slate-400 hover:text-white"
+            className="md:hidden text-zinc-400 hover:text-white"
             onClick={() => setOpen(!open)}
             aria-label="Toggle menu"
           >
@@ -71,7 +71,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden border-t border-slate-800 bg-slate-950 px-4 py-3 space-y-1">
+        <div className="md:hidden border-t border-zinc-800 bg-zinc-950 px-4 py-3 space-y-1">
           {links.map(({ href, label }) => (
             <Link
               key={href}
@@ -80,8 +80,8 @@ export default function Navbar() {
               className={clsx(
                 "block px-4 py-3 rounded-lg text-sm font-medium transition-colors",
                 pathname === href
-                  ? "text-red-400 bg-red-700/10"
-                  : "text-slate-300 hover:text-white hover:bg-slate-800"
+                  ? "text-orange-400 bg-orange-500/10"
+                  : "text-zinc-300 hover:text-white hover:bg-zinc-800"
               )}
             >
               {label}

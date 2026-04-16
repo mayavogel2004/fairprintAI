@@ -114,7 +114,7 @@ export default function ResultsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 text-red-400 animate-spin" />
+        <Loader2 className="w-8 h-8 text-orange-400 animate-spin" />
       </div>
     );
   }
@@ -126,7 +126,7 @@ export default function ResultsPage() {
       {/* Back link */}
       <Link
         href="/upload"
-        className="inline-flex items-center gap-2 text-slate-400 hover:text-white text-sm mb-8 transition-colors"
+        className="inline-flex items-center gap-2 text-zinc-400 hover:text-white text-sm mb-8 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" />
         Analyze another document
@@ -135,17 +135,17 @@ export default function ResultsPage() {
       {/* Header */}
       <div className="mb-10">
         <div className="flex flex-wrap items-center gap-3 mb-3">
-          <div className="bg-red-800 rounded-lg p-2">
+          <div className="bg-orange-600 rounded-lg p-2">
             <Shield className="w-5 h-5 text-white" />
           </div>
-          <span className="text-slate-400 text-sm">
+          <span className="text-zinc-400 text-sm">
             {DOC_TYPE_LABELS[docType] ?? "Document"} · {fileName}
           </span>
         </div>
         <h1 className="text-4xl font-extrabold text-white mb-3">
           Your Battle Plan
         </h1>
-        <p className="text-slate-400 text-lg leading-relaxed max-w-2xl">
+        <p className="text-zinc-400 text-lg leading-relaxed max-w-2xl">
           {result.summary}
         </p>
       </div>
@@ -153,22 +153,22 @@ export default function ResultsPage() {
       {/* Stats bar */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
         <div className="card text-center">
-          <div className="text-3xl font-extrabold text-red-400">{highCount}</div>
-          <div className="text-slate-400 text-sm mt-1">High Priority</div>
+          <div className="text-3xl font-extrabold text-orange-400">{highCount}</div>
+          <div className="text-zinc-400 text-sm mt-1">High Priority</div>
         </div>
         <div className="card text-center">
           <div className="text-3xl font-extrabold text-orange-400">{medCount}</div>
-          <div className="text-slate-400 text-sm mt-1">Medium Priority</div>
+          <div className="text-zinc-400 text-sm mt-1">Medium Priority</div>
         </div>
         <div className="card text-center">
           <div className="text-3xl font-extrabold text-yellow-400">{lowCount}</div>
-          <div className="text-slate-400 text-sm mt-1">Low Priority</div>
+          <div className="text-zinc-400 text-sm mt-1">Low Priority</div>
         </div>
         <div className="card text-center">
-          <div className="text-3xl font-extrabold text-stone-200">
+          <div className="text-3xl font-extrabold text-amber-300">
             {result.totalPotentialSavings ?? "—"}
           </div>
-          <div className="text-slate-400 text-sm mt-1 flex items-center justify-center gap-1">
+          <div className="text-zinc-400 text-sm mt-1 flex items-center justify-center gap-1">
             <DollarSign className="w-3 h-3" /> Potential Savings
           </div>
         </div>
@@ -188,7 +188,7 @@ export default function ResultsPage() {
                 className={clsx(
                   "rounded-xl border p-4 flex gap-4 animate-slide-up",
                   flag.severity === "high"
-                    ? "bg-red-500/5 border-red-500/25"
+                    ? "bg-orange-500/5 border-orange-500/25"
                     : flag.severity === "medium"
                     ? "bg-orange-500/5 border-orange-500/25"
                     : "bg-yellow-500/5 border-yellow-500/25"
@@ -209,9 +209,9 @@ export default function ResultsPage() {
                 </div>
                 <div className="flex-1">
                   <div className="text-white font-medium text-sm mb-1">{flag.type}</div>
-                  <div className="text-slate-300 text-sm leading-relaxed">{flag.description}</div>
+                  <div className="text-zinc-300 text-sm leading-relaxed">{flag.description}</div>
                   {flag.amount && (
-                    <div className="mt-2 inline-flex items-center gap-1 bg-slate-800 text-stone-200 text-xs font-semibold px-2.5 py-1 rounded-full">
+                    <div className="mt-2 inline-flex items-center gap-1 bg-zinc-800 text-amber-300 text-xs font-semibold px-2.5 py-1 rounded-full">
                       <DollarSign className="w-3 h-3" />
                       Potential recovery: {flag.amount}
                     </div>
@@ -227,16 +227,16 @@ export default function ResultsPage() {
       {result.battlePlan.length > 0 && (
         <section className="mb-10">
           <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-stone-200" />
+            <CheckCircle2 className="w-5 h-5 text-amber-300" />
             Your Action Items
           </h2>
-          <div className="card border-slate-700 space-y-0 divide-y divide-slate-800">
+          <div className="card border-zinc-700 space-y-0 divide-y divide-zinc-800">
             {result.battlePlan.map((step, i) => (
               <div key={i} className="flex gap-4 py-4 first:pt-0 last:pb-0">
-                <div className="shrink-0 w-7 h-7 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold flex items-center justify-center mt-0.5">
+                <div className="shrink-0 w-7 h-7 rounded-full bg-orange-600/20 border border-orange-500/30 text-orange-400 text-xs font-bold flex items-center justify-center mt-0.5">
                   {i + 1}
                 </div>
-                <p className="text-slate-300 text-sm leading-relaxed">{step}</p>
+                <p className="text-zinc-300 text-sm leading-relaxed">{step}</p>
               </div>
             ))}
           </div>
@@ -247,7 +247,7 @@ export default function ResultsPage() {
       <section className="mb-10">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <FileText className="w-5 h-5 text-red-400" />
+            <FileText className="w-5 h-5 text-orange-400" />
             Your Dispute Letter
           </h2>
           <div className="flex gap-2">
@@ -257,7 +257,7 @@ export default function ResultsPage() {
             >
               {copied ? (
                 <>
-                  <CheckCircle2 className="w-4 h-4 text-stone-200" /> Copied!
+                  <CheckCircle2 className="w-4 h-4 text-amber-300" /> Copied!
                 </>
               ) : (
                 <>
@@ -274,21 +274,21 @@ export default function ResultsPage() {
           </div>
         </div>
 
-        <div className="card border-slate-700 bg-slate-900/50">
+        <div className="card border-zinc-700 bg-zinc-900/50">
           <div
             className={clsx(
               "overflow-hidden transition-all duration-500",
               letterExpanded ? "max-h-none" : "max-h-64"
             )}
           >
-            <pre className="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap font-sans">
+            <pre className="text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap font-sans">
               {result.disputeLetter}
             </pre>
           </div>
 
           <button
             onClick={() => setLetterExpanded(!letterExpanded)}
-            className="mt-4 w-full flex items-center justify-center gap-2 text-slate-400 hover:text-white text-sm transition-colors py-2 border-t border-slate-800"
+            className="mt-4 w-full flex items-center justify-center gap-2 text-zinc-400 hover:text-white text-sm transition-colors py-2 border-t border-zinc-800"
           >
             {letterExpanded ? (
               <>
@@ -302,14 +302,14 @@ export default function ResultsPage() {
           </button>
         </div>
 
-        <p className="text-slate-500 text-xs mt-3 leading-relaxed">
+        <p className="text-zinc-500 text-xs mt-3 leading-relaxed">
           This letter was generated by AI and is for informational purposes only. Review it carefully and consult a professional before sending. FairPrint is not a law firm and does not provide legal advice.
         </p>
       </section>
 
       {/* CTA footer */}
-      <div className="card border-red-700/20 bg-red-700/5 text-center">
-        <p className="text-slate-300 mb-4">
+      <div className="card border-orange-500/20 bg-orange-500/5 text-center">
+        <p className="text-zinc-300 mb-4">
           Have another document to review?
         </p>
         <Link href="/upload" className="btn-primary">

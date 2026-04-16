@@ -19,18 +19,18 @@ const docTypes = [
     title: "Medical Bills",
     description:
       "Spot duplicate charges, upcoding, and billing for services never received.",
-    color: "text-red-400",
-    bg: "bg-red-700/10",
-    border: "border-red-700/20",
+    color: "text-orange-400",
+    bg: "bg-orange-500/10",
+    border: "border-orange-500/20",
   },
   {
     icon: FileX,
     title: "Insurance Denials",
     description:
       "Understand why you were denied and get a compelling, pre-written appeal letter.",
-    color: "text-stone-200",
-    bg: "bg-stone-300/10",
-    border: "border-stone-300/20",
+    color: "text-amber-300",
+    bg: "bg-amber-400/10",
+    border: "border-amber-400/20",
   },
   {
     icon: Home,
@@ -78,13 +78,14 @@ export default function HomePage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden pt-20 pb-28 px-4">
-        {/* Background glow */}
+        {/* Background glow — Sora.AI style */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-red-800/10 rounded-full blur-3xl" />
+          <div className="absolute top-[-100px] right-[-100px] w-[600px] h-[600px] bg-orange-500/20 rounded-full blur-[120px]" />
+          <div className="absolute top-[-50px] left-[-100px] w-[400px] h-[400px] bg-amber-600/10 rounded-full blur-[100px]" />
         </div>
 
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-red-700/10 border border-red-700/20 text-red-400 text-sm font-medium px-4 py-2 rounded-full mb-8">
+          <div className="inline-flex items-center gap-2 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-sm font-medium px-4 py-2 rounded-full mb-8">
             <Shield className="w-4 h-4" />
             AI-Powered Consumer Advocacy
           </div>
@@ -94,7 +95,7 @@ export default function HomePage() {
             <span className="gradient-text">you don&apos;t owe.</span>
           </h1>
 
-          <p className="text-slate-400 text-xl md:text-2xl leading-relaxed mb-10 max-w-3xl mx-auto">
+          <p className="text-zinc-400 text-xl md:text-2xl leading-relaxed mb-10 max-w-3xl mx-auto">
             Medical bills, insurance denials, and leases are written to confuse you.
             FairPrint reads them for you, finds the red flags, and writes your dispute letter.
           </p>
@@ -110,21 +111,21 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <p className="text-slate-500 text-sm mt-6">
+          <p className="text-zinc-500 text-sm mt-6">
             No account needed · Documents are never stored · Powered by GPT-4 Vision
           </p>
         </div>
       </section>
 
       {/* Stats bar */}
-      <section className="bg-slate-900 border-y border-slate-800 py-12 px-4">
+      <section className="bg-zinc-900 border-y border-zinc-800 py-12 px-4">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map(({ value, label }) => (
             <div key={label} className="text-center">
               <div className="text-3xl md:text-4xl font-extrabold gradient-text mb-1">
                 {value}
               </div>
-              <div className="text-slate-400 text-sm leading-tight">{label}</div>
+              <div className="text-zinc-400 text-sm leading-tight">{label}</div>
             </div>
           ))}
         </div>
@@ -133,15 +134,15 @@ export default function HomePage() {
       {/* The Problem */}
       <section className="py-24 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="card border-l-4 border-l-red-700 bg-gradient-to-r from-red-700/5 to-transparent">
-            <p className="text-slate-300 text-lg md:text-xl leading-relaxed italic">
+          <div className="card border-l-4 border-l-orange-500 bg-gradient-to-r from-orange-500/5 to-transparent">
+            <p className="text-zinc-300 text-lg md:text-xl leading-relaxed italic">
               &ldquo;The average American reads at an 8th-grade level, but medical bills, insurance denials, and rental
               leases are written at a postgraduate legal level. This isn&apos;t an accident — it&apos;s a design
               feature meant to make us give up and pay. Vulnerable populations — the elderly, ESL speakers,
               first-time renters — often pay hidden fees or sign away their rights simply because they don&apos;t have
               the tools to fight back.&rdquo;
             </p>
-            <p className="text-slate-500 text-sm mt-4">
+            <p className="text-zinc-500 text-sm mt-4">
               — The problem FairPrint was built to solve
             </p>
           </div>
@@ -165,7 +166,7 @@ export default function HomePage() {
                   <Icon className={`w-6 h-6 ${color}`} />
                 </div>
                 <h3 className="text-white font-semibold text-lg mb-2">{title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{description}</p>
+                <p className="text-zinc-400 text-sm leading-relaxed">{description}</p>
                 <Link
                   href="/upload"
                   className={`mt-5 inline-flex items-center gap-1 text-sm font-medium ${color} hover:underline`}
@@ -190,18 +191,18 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-8 relative">
             {/* Connector line */}
-            <div className="hidden md:block absolute top-8 left-[calc(16.66%+2rem)] right-[calc(16.66%+2rem)] h-px bg-gradient-to-r from-red-700/50 via-stone-300/50 to-purple-500/50" />
+            <div className="hidden md:block absolute top-8 left-[calc(16.66%+2rem)] right-[calc(16.66%+2rem)] h-px bg-gradient-to-r from-orange-500/50 via-amber-400/50 to-purple-500/50" />
 
             {steps.map(({ step, icon: Icon, title, description }, i) => (
               <div key={step} className="relative text-center">
-                <div className="relative inline-flex items-center justify-center w-16 h-16 bg-slate-900 border-2 border-red-700/40 rounded-2xl mb-5 mx-auto">
-                  <Icon className="w-7 h-7 text-red-400" />
-                  <span className="absolute -top-2 -right-2 text-[10px] font-bold text-slate-500 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">
+                <div className="relative inline-flex items-center justify-center w-16 h-16 bg-zinc-900 border-2 border-orange-500/40 rounded-2xl mb-5 mx-auto">
+                  <Icon className="w-7 h-7 text-orange-400" />
+                  <span className="absolute -top-2 -right-2 text-[10px] font-bold text-zinc-500 bg-zinc-950 px-1.5 py-0.5 rounded border border-zinc-800">
                     {step}
                   </span>
                 </div>
                 <h3 className="text-white font-semibold text-lg mb-2">{title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{description}</p>
+                <p className="text-zinc-400 text-sm leading-relaxed">{description}</p>
               </div>
             ))}
           </div>
@@ -218,13 +219,13 @@ export default function HomePage() {
       {/* What you get */}
       <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="card bg-gradient-to-br from-slate-900 to-slate-900/50 border-slate-700">
+          <div className="card bg-gradient-to-br from-zinc-900 to-zinc-900/50 border-zinc-700">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-3xl font-bold text-white mb-4">
                   Your complete <span className="gradient-text">Battle Plan</span>
                 </h2>
-                <p className="text-slate-400 leading-relaxed mb-6">
+                <p className="text-zinc-400 leading-relaxed mb-6">
                   FairPrint doesn&apos;t just translate your documents. It acts as your personal consumer advocate —
                   identifying every issue and giving you the exact words to fight back.
                 </p>
@@ -236,8 +237,8 @@ export default function HomePage() {
                     "Professionally written dispute letter ready to download and mail",
                     "Estimated potential savings from identified overcharges",
                   ].map((item) => (
-                    <li key={item} className="flex items-start gap-3 text-sm text-slate-300">
-                      <CheckCircle2 className="w-5 h-5 text-stone-200 mt-0.5 shrink-0" />
+                    <li key={item} className="flex items-start gap-3 text-sm text-zinc-300">
+                      <CheckCircle2 className="w-5 h-5 text-amber-300 mt-0.5 shrink-0" />
                       {item}
                     </li>
                   ))}
@@ -246,25 +247,25 @@ export default function HomePage() {
 
               <div className="space-y-3">
                 {/* Mock battle plan preview */}
-                <div className="card border-slate-700 text-sm space-y-2">
-                  <div className="flex items-center gap-2 text-slate-400 text-xs font-semibold uppercase tracking-wider mb-3">
-                    <AlertTriangle className="w-4 h-4 text-red-400" />
+                <div className="card border-zinc-700 text-sm space-y-2">
+                  <div className="flex items-center gap-2 text-zinc-400 text-xs font-semibold uppercase tracking-wider mb-3">
+                    <AlertTriangle className="w-4 h-4 text-orange-400" />
                     Red Flags Detected
                   </div>
-                  <div className="bg-red-500/5 border border-red-500/20 rounded-lg p-3 flex gap-3">
+                  <div className="bg-orange-500/5 border border-orange-500/20 rounded-lg p-3 flex gap-3">
                     <span className="badge-high shrink-0">High</span>
-                    <p className="text-slate-300">Duplicate charge for &ldquo;Room &amp; Board&rdquo; — billed twice on 04/12 and 04/13 ($1,840.00)</p>
+                    <p className="text-zinc-300">Duplicate charge for &ldquo;Room &amp; Board&rdquo; — billed twice on 04/12 and 04/13 ($1,840.00)</p>
                   </div>
                   <div className="bg-orange-500/5 border border-orange-500/20 rounded-lg p-3 flex gap-3">
                     <span className="badge-medium shrink-0">Med</span>
-                    <p className="text-slate-300">Upcoding detected: &ldquo;Consultation&rdquo; billed as Level 5 (99215) but notes indicate Level 3 ($340 difference)</p>
+                    <p className="text-zinc-300">Upcoding detected: &ldquo;Consultation&rdquo; billed as Level 5 (99215) but notes indicate Level 3 ($340 difference)</p>
                   </div>
                   <div className="bg-yellow-500/5 border border-yellow-500/20 rounded-lg p-3 flex gap-3">
                     <span className="badge-low shrink-0">Low</span>
-                    <p className="text-slate-300">Itemized bill missing — hospital must provide one upon request under federal law</p>
+                    <p className="text-zinc-300">Itemized bill missing — hospital must provide one upon request under federal law</p>
                   </div>
                 </div>
-                <p className="text-center text-slate-500 text-xs">
+                <p className="text-center text-zinc-500 text-xs">
                   Sample output — your results will be based on your actual document
                 </p>
               </div>
@@ -280,7 +281,7 @@ export default function HomePage() {
           <h2 className="text-4xl font-extrabold text-white mb-4">
             Knowledge is the equalizer.
           </h2>
-          <p className="text-slate-400 text-lg mb-10 leading-relaxed">
+          <p className="text-zinc-400 text-lg mb-10 leading-relaxed">
             Hospitals, insurers, and landlords have lawyers on their side. Now you have AI.
             Upload your document and turn confusion into confidence.
           </p>

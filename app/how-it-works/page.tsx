@@ -22,9 +22,9 @@ const steps = [
     description:
       "Take a photo with your phone or upload a scanned image. FairPrint accepts JPG, PNG, WEBP, HEIC, and PDF files up to 10MB. You can upload a medical bill, insurance denial letter, rental lease, or any other consumer document.",
     detail: "Drag and drop or click to browse. No account required.",
-    color: "text-red-400",
-    border: "border-red-700/30",
-    bg: "bg-red-700/10",
+    color: "text-orange-400",
+    border: "border-orange-500/30",
+    bg: "bg-orange-500/10",
   },
   {
     step: "02",
@@ -33,9 +33,9 @@ const steps = [
     description:
       "Using OpenAI's GPT-4 Vision model, FairPrint reads your document exactly as a human would — understanding text, tables, numbers, and context — even from low-quality phone photos.",
     detail: "The AI can read handwriting, messy scans, and complex billing tables.",
-    color: "text-stone-200",
-    border: "border-stone-300/30",
-    bg: "bg-stone-300/10",
+    color: "text-amber-300",
+    border: "border-amber-400/30",
+    bg: "bg-amber-400/10",
   },
   {
     step: "03",
@@ -66,9 +66,9 @@ const steps = [
     description:
       "The AI drafts a professionally worded, legally-sound dispute letter ready to sign, print, and mail. For medical bills it calls out specific billing codes. For insurance denials it cites the relevant plan language. For leases it references applicable tenant protections.",
     detail: "Download as a formatted PDF with one click.",
-    color: "text-red-400",
-    border: "border-red-500/30",
-    bg: "bg-red-500/10",
+    color: "text-orange-400",
+    border: "border-orange-500/30",
+    bg: "bg-orange-500/10",
   },
 ];
 
@@ -136,7 +136,7 @@ export default function HowItWorksPage() {
         <h1 className="text-5xl font-extrabold text-white mb-4">
           How <span className="gradient-text">FairPrint</span> Works
         </h1>
-        <p className="text-slate-400 text-xl leading-relaxed max-w-2xl mx-auto">
+        <p className="text-zinc-400 text-xl leading-relaxed max-w-2xl mx-auto">
           From a confusing document to a ready-to-send dispute letter in five steps — powered by GPT-4 Vision.
         </p>
       </div>
@@ -144,7 +144,7 @@ export default function HowItWorksPage() {
       {/* Step-by-step */}
       <section className="mb-20 relative">
         {/* Vertical timeline line */}
-        <div className="absolute left-[27px] top-8 bottom-8 w-px bg-gradient-to-b from-red-700/50 via-purple-500/30 to-red-500/50 hidden md:block" />
+        <div className="absolute left-[27px] top-8 bottom-8 w-px bg-gradient-to-b from-orange-500/50 via-purple-500/30 to-orange-500/50 hidden md:block" />
 
         <div className="space-y-10">
           {steps.map(({ step, icon: Icon, title, description, detail, color, border, bg }) => (
@@ -156,10 +156,10 @@ export default function HowItWorksPage() {
               </div>
               <div className="flex-1 pb-2">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="text-slate-600 text-xs font-bold tracking-wider uppercase">Step {step}</span>
+                  <span className="text-zinc-600 text-xs font-bold tracking-wider uppercase">Step {step}</span>
                 </div>
                 <h3 className="text-white font-bold text-xl mb-2">{title}</h3>
-                <p className="text-slate-400 leading-relaxed mb-2">{description}</p>
+                <p className="text-zinc-400 leading-relaxed mb-2">{description}</p>
                 <div className={`inline-flex items-center gap-2 ${bg} ${border} border rounded-lg px-3 py-1.5 text-sm ${color}`}>
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   {detail}
@@ -173,15 +173,15 @@ export default function HowItWorksPage() {
       {/* Technology */}
       <section className="mb-20">
         <h2 className="section-title mb-2">The Technology</h2>
-        <p className="text-slate-400 mb-10">What's running under the hood.</p>
+        <p className="text-zinc-400 mb-10">What's running under the hood.</p>
         <div className="grid md:grid-cols-2 gap-5">
           {techStack.map(({ icon: Icon, title, description }) => (
             <div key={title} className="card-hover">
-              <div className="bg-red-700/10 border border-red-700/20 w-10 h-10 rounded-xl flex items-center justify-center mb-4">
-                <Icon className="w-5 h-5 text-red-400" />
+              <div className="bg-orange-500/10 border border-orange-500/20 w-10 h-10 rounded-xl flex items-center justify-center mb-4">
+                <Icon className="w-5 h-5 text-orange-400" />
               </div>
               <h3 className="text-white font-semibold mb-2">{title}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">{description}</p>
+              <p className="text-zinc-400 text-sm leading-relaxed">{description}</p>
             </div>
           ))}
         </div>
@@ -190,17 +190,17 @@ export default function HowItWorksPage() {
       {/* Red flags reference */}
       <section className="mb-20">
         <h2 className="section-title mb-2">What the AI Looks For</h2>
-        <p className="text-slate-400 mb-10">A sample of red flags by document type.</p>
+        <p className="text-zinc-400 mb-10">A sample of red flags by document type.</p>
         <div className="space-y-6">
           {redFlagTypes.map(({ category, flags }) => (
-            <div key={category} className="card border-slate-700">
+            <div key={category} className="card border-zinc-700">
               <div className="flex items-center gap-2 mb-4">
                 <AlertTriangle className="w-5 h-5 text-orange-400" />
                 <h3 className="text-white font-semibold">{category}</h3>
               </div>
               <ul className="space-y-2">
                 {flags.map((flag) => (
-                  <li key={flag} className="flex items-start gap-3 text-sm text-slate-400">
+                  <li key={flag} className="flex items-start gap-3 text-sm text-zinc-400">
                     <div className="w-1.5 h-1.5 rounded-full bg-orange-400/60 mt-2 shrink-0" />
                     {flag}
                   </li>
@@ -214,7 +214,7 @@ export default function HowItWorksPage() {
       {/* CTA */}
       <div className="text-center">
         <h2 className="text-3xl font-bold text-white mb-4">Ready to try it?</h2>
-        <p className="text-slate-400 mb-8">Upload a document and see your Battle Plan in under a minute.</p>
+        <p className="text-zinc-400 mb-8">Upload a document and see your Battle Plan in under a minute.</p>
         <Link href="/upload" className="btn-primary text-lg py-4 px-10">
           Analyze My Document
           <ArrowRight className="w-5 h-5" />
