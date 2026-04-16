@@ -4,10 +4,6 @@ import { getSystemPrompt } from "@/lib/prompts";
 
 export const maxDuration = 60; // Allow up to 60s for GPT-4 Vision
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 type DocumentType = "medical_bill" | "insurance_denial" | "lease" | "other";
 
 interface AnalyzeRequestBody {
@@ -25,6 +21,8 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
+
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
   let body: AnalyzeRequestBody;
   try {
