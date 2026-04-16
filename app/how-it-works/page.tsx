@@ -22,9 +22,9 @@ const steps = [
     description:
       "Take a photo with your phone or upload a scanned image. FairPrint accepts JPG, PNG, WEBP, HEIC, and PDF files up to 10MB. You can upload a medical bill, insurance denial letter, rental lease, or any other consumer document.",
     detail: "Drag and drop or click to browse. No account required.",
-    color: "text-green-400",
-    border: "border-green-600/30",
-    bg: "bg-green-600/10",
+    color: "text-red-400",
+    border: "border-red-700/30",
+    bg: "bg-red-700/10",
   },
   {
     step: "02",
@@ -33,9 +33,9 @@ const steps = [
     description:
       "Using OpenAI's GPT-4 Vision model, FairPrint reads your document exactly as a human would — understanding text, tables, numbers, and context — even from low-quality phone photos.",
     detail: "The AI can read handwriting, messy scans, and complex billing tables.",
-    color: "text-amber-400",
-    border: "border-amber-500/30",
-    bg: "bg-amber-500/10",
+    color: "text-stone-200",
+    border: "border-stone-300/30",
+    bg: "bg-stone-300/10",
   },
   {
     step: "03",
@@ -66,9 +66,9 @@ const steps = [
     description:
       "The AI drafts a professionally worded, legally-sound dispute letter ready to sign, print, and mail. For medical bills it calls out specific billing codes. For insurance denials it cites the relevant plan language. For leases it references applicable tenant protections.",
     detail: "Download as a formatted PDF with one click.",
-    color: "text-green-400",
-    border: "border-green-500/30",
-    bg: "bg-green-500/10",
+    color: "text-red-400",
+    border: "border-red-500/30",
+    bg: "bg-red-500/10",
   },
 ];
 
@@ -144,7 +144,7 @@ export default function HowItWorksPage() {
       {/* Step-by-step */}
       <section className="mb-20 relative">
         {/* Vertical timeline line */}
-        <div className="absolute left-[27px] top-8 bottom-8 w-px bg-gradient-to-b from-green-600/50 via-purple-500/30 to-green-500/50 hidden md:block" />
+        <div className="absolute left-[27px] top-8 bottom-8 w-px bg-gradient-to-b from-red-700/50 via-purple-500/30 to-red-500/50 hidden md:block" />
 
         <div className="space-y-10">
           {steps.map(({ step, icon: Icon, title, description, detail, color, border, bg }) => (
@@ -177,8 +177,8 @@ export default function HowItWorksPage() {
         <div className="grid md:grid-cols-2 gap-5">
           {techStack.map(({ icon: Icon, title, description }) => (
             <div key={title} className="card-hover">
-              <div className="bg-green-600/10 border border-green-600/20 w-10 h-10 rounded-xl flex items-center justify-center mb-4">
-                <Icon className="w-5 h-5 text-green-400" />
+              <div className="bg-red-700/10 border border-red-700/20 w-10 h-10 rounded-xl flex items-center justify-center mb-4">
+                <Icon className="w-5 h-5 text-red-400" />
               </div>
               <h3 className="text-white font-semibold mb-2">{title}</h3>
               <p className="text-slate-400 text-sm leading-relaxed">{description}</p>

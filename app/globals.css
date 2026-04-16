@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,8 +6,8 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 2, 10, 5;
-  --background-end-rgb: 5, 20, 10;
+  --background-start-rgb: 12, 3, 3;
+  --background-end-rgb: 22, 6, 6;
 }
 
 html {
@@ -25,9 +25,13 @@ body {
   font-family: 'Inter', system-ui, sans-serif;
 }
 
+h1, h2, h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
 @layer components {
   .btn-primary {
-    @apply bg-green-700 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 inline-flex items-center gap-2 shadow-lg shadow-green-900/40 hover:shadow-green-800/50 hover:-translate-y-0.5;
+    @apply bg-red-800 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 inline-flex items-center gap-2 shadow-lg shadow-red-950/40 hover:shadow-red-900/50 hover:-translate-y-0.5;
   }
 
   .btn-secondary {
@@ -63,7 +67,7 @@ body {
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-green-400 to-amber-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-red-400 to-stone-300 bg-clip-text text-transparent;
   }
 }
 
@@ -72,12 +76,12 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a1a0e;
+  background: #120303;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1a4a28;
+  background: #4a1010;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #22623a;
+  background: #6b1515;
 }

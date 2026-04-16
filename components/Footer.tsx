@@ -9,10 +9,10 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 font-bold text-lg text-white mb-3">
-              <div className="bg-green-700 rounded-lg p-1.5">
+              <div className="bg-red-800 rounded-lg p-1.5">
                 <Shield className="w-4 h-4 text-white" />
               </div>
-              Fair<span className="text-green-400">Print</span>
+              Fair<span className="text-red-400">Print</span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed">
               Turning confusing documents into plain-English explanations and ready-to-send dispute letters since 2025.

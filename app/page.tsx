@@ -19,18 +19,18 @@ const docTypes = [
     title: "Medical Bills",
     description:
       "Spot duplicate charges, upcoding, and billing for services never received.",
-    color: "text-green-400",
-    bg: "bg-green-600/10",
-    border: "border-green-600/20",
+    color: "text-red-400",
+    bg: "bg-red-700/10",
+    border: "border-red-700/20",
   },
   {
     icon: FileX,
     title: "Insurance Denials",
     description:
       "Understand why you were denied and get a compelling, pre-written appeal letter.",
-    color: "text-amber-400",
-    bg: "bg-amber-500/10",
-    border: "border-amber-500/20",
+    color: "text-stone-200",
+    bg: "bg-stone-300/10",
+    border: "border-stone-300/20",
   },
   {
     icon: Home,
@@ -80,11 +80,11 @@ export default function HomePage() {
       <section className="relative overflow-hidden pt-20 pb-28 px-4">
         {/* Background glow */}
         <div className="absolute inset-0 -z-10">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-green-700/10 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-red-800/10 rounded-full blur-3xl" />
         </div>
 
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-green-600/10 border border-green-600/20 text-green-400 text-sm font-medium px-4 py-2 rounded-full mb-8">
+          <div className="inline-flex items-center gap-2 bg-red-700/10 border border-red-700/20 text-red-400 text-sm font-medium px-4 py-2 rounded-full mb-8">
             <Shield className="w-4 h-4" />
             AI-Powered Consumer Advocacy
           </div>
@@ -133,7 +133,7 @@ export default function HomePage() {
       {/* The Problem */}
       <section className="py-24 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="card border-l-4 border-l-green-600 bg-gradient-to-r from-green-600/5 to-transparent">
+          <div className="card border-l-4 border-l-red-700 bg-gradient-to-r from-red-700/5 to-transparent">
             <p className="text-slate-300 text-lg md:text-xl leading-relaxed italic">
               &ldquo;The average American reads at an 8th-grade level, but medical bills, insurance denials, and rental
               leases are written at a postgraduate legal level. This isn&apos;t an accident — it&apos;s a design
@@ -190,12 +190,12 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-8 relative">
             {/* Connector line */}
-            <div className="hidden md:block absolute top-8 left-[calc(16.66%+2rem)] right-[calc(16.66%+2rem)] h-px bg-gradient-to-r from-green-600/50 via-amber-500/50 to-purple-500/50" />
+            <div className="hidden md:block absolute top-8 left-[calc(16.66%+2rem)] right-[calc(16.66%+2rem)] h-px bg-gradient-to-r from-red-700/50 via-stone-300/50 to-purple-500/50" />
 
             {steps.map(({ step, icon: Icon, title, description }, i) => (
               <div key={step} className="relative text-center">
-                <div className="relative inline-flex items-center justify-center w-16 h-16 bg-slate-900 border-2 border-green-600/40 rounded-2xl mb-5 mx-auto">
-                  <Icon className="w-7 h-7 text-green-400" />
+                <div className="relative inline-flex items-center justify-center w-16 h-16 bg-slate-900 border-2 border-red-700/40 rounded-2xl mb-5 mx-auto">
+                  <Icon className="w-7 h-7 text-red-400" />
                   <span className="absolute -top-2 -right-2 text-[10px] font-bold text-slate-500 bg-slate-950 px-1.5 py-0.5 rounded border border-slate-800">
                     {step}
                   </span>
@@ -237,7 +237,7 @@ export default function HomePage() {
                     "Estimated potential savings from identified overcharges",
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3 text-sm text-slate-300">
-                      <CheckCircle2 className="w-5 h-5 text-amber-400 mt-0.5 shrink-0" />
+                      <CheckCircle2 className="w-5 h-5 text-stone-200 mt-0.5 shrink-0" />
                       {item}
                     </li>
                   ))}

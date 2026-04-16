@@ -50,7 +50,7 @@ export default function AboutPage() {
     <div className="max-w-4xl mx-auto px-4 py-16">
       {/* Hero */}
       <div className="text-center mb-16">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-green-700 rounded-2xl mb-6">
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-red-800 rounded-2xl mb-6">
           <Shield className="w-8 h-8 text-white" />
         </div>
         <h1 className="text-5xl font-extrabold text-white mb-5">
@@ -64,7 +64,7 @@ export default function AboutPage() {
 
       {/* Mission quote */}
       <section className="mb-16">
-        <div className="card border-l-4 border-l-amber-500 bg-gradient-to-r from-amber-500/5 to-transparent">
+        <div className="card border-l-4 border-l-stone-300 bg-gradient-to-r from-stone-300/5 to-transparent">
           <p className="text-slate-200 text-xl leading-relaxed italic mb-4">
             &ldquo;Knowledge is power. When hospitals, insurance companies, and landlords hold all the knowledge,
             the power imbalance is total. FairPrint is an attempt to rebalance that equation using the same
@@ -125,8 +125,8 @@ export default function AboutPage() {
         <div className="grid md:grid-cols-2 gap-5">
           {values.map(({ icon: Icon, title, description }) => (
             <div key={title} className="card-hover">
-              <div className="bg-green-600/10 border border-green-600/20 w-10 h-10 rounded-xl flex items-center justify-center mb-4">
-                <Icon className="w-5 h-5 text-green-400" />
+              <div className="bg-red-700/10 border border-red-700/20 w-10 h-10 rounded-xl flex items-center justify-center mb-4">
+                <Icon className="w-5 h-5 text-red-400" />
               </div>
               <h3 className="text-white font-semibold mb-2">{title}</h3>
               <p className="text-slate-400 text-sm leading-relaxed">{description}</p>
@@ -166,7 +166,7 @@ export default function AboutPage() {
       {/* Built with AI callout */}
       <section className="mb-16">
         <div className="card border-slate-700 text-center">
-          <Users className="w-8 h-8 text-green-400 mx-auto mb-3" />
+          <Users className="w-8 h-8 text-red-400 mx-auto mb-3" />
           <h3 className="text-white font-semibold text-lg mb-2">Built with AI, for people</h3>
           <p className="text-slate-400 text-sm max-w-lg mx-auto leading-relaxed">
             FairPrint was built as a demonstration that AI can be a force for consumer empowerment —

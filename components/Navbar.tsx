@@ -24,12 +24,12 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 font-bold text-xl text-white hover:text-green-400 transition-colors"
+            className="flex items-center gap-2.5 font-bold text-xl text-white hover:text-red-400 transition-colors"
           >
-            <div className="bg-green-700 rounded-lg p-1.5">
+            <div className="bg-red-800 rounded-lg p-1.5">
               <Shield className="w-5 h-5 text-white" />
             </div>
-            Fair<span className="text-green-400">Print</span>
+            Fair<span className="text-red-400">Print</span>
           </Link>
 
           {/* Desktop links */}
@@ -41,7 +41,7 @@ export default function Navbar() {
                 className={clsx(
                   "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
                   pathname === href
-                    ? "text-green-400 bg-green-600/10"
+                    ? "text-red-400 bg-red-700/10"
                     : "text-slate-300 hover:text-white hover:bg-slate-800"
                 )}
               >
@@ -80,7 +80,7 @@ export default function Navbar() {
               className={clsx(
                 "block px-4 py-3 rounded-lg text-sm font-medium transition-colors",
                 pathname === href
-                  ? "text-green-400 bg-green-600/10"
+                  ? "text-red-400 bg-red-700/10"
                   : "text-slate-300 hover:text-white hover:bg-slate-800"
               )}
             >
