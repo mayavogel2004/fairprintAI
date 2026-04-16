@@ -114,7 +114,7 @@ export default function ResultsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 text-blue-400 animate-spin" />
+        <Loader2 className="w-8 h-8 text-green-400 animate-spin" />
       </div>
     );
   }
@@ -135,7 +135,7 @@ export default function ResultsPage() {
       {/* Header */}
       <div className="mb-10">
         <div className="flex flex-wrap items-center gap-3 mb-3">
-          <div className="bg-blue-600 rounded-lg p-2">
+          <div className="bg-green-700 rounded-lg p-2">
             <Shield className="w-5 h-5 text-white" />
           </div>
           <span className="text-slate-400 text-sm">
@@ -165,7 +165,7 @@ export default function ResultsPage() {
           <div className="text-slate-400 text-sm mt-1">Low Priority</div>
         </div>
         <div className="card text-center">
-          <div className="text-3xl font-extrabold text-teal-400">
+          <div className="text-3xl font-extrabold text-amber-400">
             {result.totalPotentialSavings ?? "—"}
           </div>
           <div className="text-slate-400 text-sm mt-1 flex items-center justify-center gap-1">
@@ -211,7 +211,7 @@ export default function ResultsPage() {
                   <div className="text-white font-medium text-sm mb-1">{flag.type}</div>
                   <div className="text-slate-300 text-sm leading-relaxed">{flag.description}</div>
                   {flag.amount && (
-                    <div className="mt-2 inline-flex items-center gap-1 bg-slate-800 text-teal-400 text-xs font-semibold px-2.5 py-1 rounded-full">
+                    <div className="mt-2 inline-flex items-center gap-1 bg-slate-800 text-amber-400 text-xs font-semibold px-2.5 py-1 rounded-full">
                       <DollarSign className="w-3 h-3" />
                       Potential recovery: {flag.amount}
                     </div>
@@ -227,13 +227,13 @@ export default function ResultsPage() {
       {result.battlePlan.length > 0 && (
         <section className="mb-10">
           <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-teal-400" />
+            <CheckCircle2 className="w-5 h-5 text-amber-400" />
             Your Action Items
           </h2>
           <div className="card border-slate-700 space-y-0 divide-y divide-slate-800">
             {result.battlePlan.map((step, i) => (
               <div key={i} className="flex gap-4 py-4 first:pt-0 last:pb-0">
-                <div className="shrink-0 w-7 h-7 rounded-full bg-blue-600/20 border border-blue-500/30 text-blue-400 text-xs font-bold flex items-center justify-center mt-0.5">
+                <div className="shrink-0 w-7 h-7 rounded-full bg-green-700/20 border border-green-600/30 text-green-400 text-xs font-bold flex items-center justify-center mt-0.5">
                   {i + 1}
                 </div>
                 <p className="text-slate-300 text-sm leading-relaxed">{step}</p>
@@ -247,7 +247,7 @@ export default function ResultsPage() {
       <section className="mb-10">
         <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <FileText className="w-5 h-5 text-blue-400" />
+            <FileText className="w-5 h-5 text-green-400" />
             Your Dispute Letter
           </h2>
           <div className="flex gap-2">
@@ -257,7 +257,7 @@ export default function ResultsPage() {
             >
               {copied ? (
                 <>
-                  <CheckCircle2 className="w-4 h-4 text-teal-400" /> Copied!
+                  <CheckCircle2 className="w-4 h-4 text-amber-400" /> Copied!
                 </>
               ) : (
                 <>
@@ -308,7 +308,7 @@ export default function ResultsPage() {
       </section>
 
       {/* CTA footer */}
-      <div className="card border-blue-500/20 bg-blue-500/5 text-center">
+      <div className="card border-green-600/20 bg-green-600/5 text-center">
         <p className="text-slate-300 mb-4">
           Have another document to review?
         </p>

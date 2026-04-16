@@ -23,18 +23,18 @@ const DOC_TYPES = [
     icon: Stethoscope,
     label: "Medical Bill",
     description: "Hospital, clinic, or provider bill",
-    color: "text-blue-400",
-    border: "border-blue-500/40",
-    bg: "bg-blue-500/10",
+    color: "text-green-400",
+    border: "border-green-600/40",
+    bg: "bg-green-600/10",
   },
   {
     id: "insurance_denial",
     icon: FileX,
     label: "Insurance Denial",
     description: "Denial letter or Explanation of Benefits (EOB)",
-    color: "text-teal-400",
-    border: "border-teal-500/40",
-    bg: "bg-teal-500/10",
+    color: "text-amber-400",
+    border: "border-amber-500/40",
+    bg: "bg-amber-500/10",
   },
   {
     id: "lease",
@@ -171,7 +171,7 @@ export default function UploadPage() {
       {/* Step 1: Document Type */}
       <div className="mb-8">
         <h2 className="text-white font-semibold text-lg mb-4 flex items-center gap-2">
-          <span className="bg-blue-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+          <span className="bg-green-700 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
             1
           </span>
           What type of document is this?
@@ -206,7 +206,7 @@ export default function UploadPage() {
       {/* Step 2: Upload */}
       <div className="mb-8">
         <h2 className="text-white font-semibold text-lg mb-4 flex items-center gap-2">
-          <span className="bg-blue-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+          <span className="bg-green-700 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
             2
           </span>
           Upload your document
@@ -218,14 +218,14 @@ export default function UploadPage() {
             className={clsx(
               "border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all duration-200",
               isDragActive
-                ? "border-blue-500 bg-blue-500/5"
+                ? "border-green-600 bg-green-600/5"
                 : "border-slate-700 bg-slate-900 hover:border-slate-500 hover:bg-slate-800/50"
             )}
           >
             <input {...getInputProps()} />
             <div className="flex justify-center mb-4">
-              <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4">
-                <Upload className="w-10 h-10 text-blue-400" />
+              <div className="bg-green-600/10 border border-green-600/20 rounded-2xl p-4">
+                <Upload className="w-10 h-10 text-green-400" />
               </div>
             </div>
             <p className="text-white font-semibold text-lg mb-1">
@@ -269,8 +269,8 @@ export default function UploadPage() {
                   </button>
                 </div>
                 <div className="flex items-center gap-2 mt-2">
-                  <CheckCircle2 className="w-4 h-4 text-teal-400" />
-                  <span className="text-teal-400 text-sm">File ready</span>
+                  <CheckCircle2 className="w-4 h-4 text-amber-400" />
+                  <span className="text-amber-400 text-sm">File ready</span>
                 </div>
               </div>
             </div>
@@ -287,9 +287,9 @@ export default function UploadPage() {
 
       {/* Loading / Progress */}
       {isLoading && (
-        <div className="card border-blue-500/30 bg-blue-500/5 mb-8 animate-fade-in">
+        <div className="card border-green-600/30 bg-green-600/5 mb-8 animate-fade-in">
           <div className="flex flex-col items-center text-center py-4">
-            <Loader2 className="w-10 h-10 text-blue-400 animate-spin mb-4" />
+            <Loader2 className="w-10 h-10 text-green-400 animate-spin mb-4" />
             <p className="text-white font-semibold text-lg mb-6">
               Your AI advocate is working...
             </p>
@@ -300,7 +300,7 @@ export default function UploadPage() {
                   className={clsx(
                     "flex items-center gap-3 text-sm transition-all duration-500",
                     i < stepIndex
-                      ? "text-teal-400"
+                      ? "text-amber-400"
                       : i === stepIndex
                       ? "text-white"
                       : "text-slate-600"
@@ -323,9 +323,9 @@ export default function UploadPage() {
 
       {/* Done state */}
       {state === "done" && (
-        <div className="card border-teal-500/30 bg-teal-500/5 mb-8 text-center animate-fade-in">
-          <CheckCircle2 className="w-10 h-10 text-teal-400 mx-auto mb-3" />
-          <p className="text-teal-400 font-semibold">Analysis complete! Redirecting to your Battle Plan...</p>
+        <div className="card border-amber-500/30 bg-amber-500/5 mb-8 text-center animate-fade-in">
+          <CheckCircle2 className="w-10 h-10 text-amber-400 mx-auto mb-3" />
+          <p className="text-amber-400 font-semibold">Analysis complete! Redirecting to your Battle Plan...</p>
         </div>
       )}
 
@@ -337,7 +337,7 @@ export default function UploadPage() {
           className={clsx(
             "w-full py-4 rounded-xl font-semibold text-lg transition-all duration-200",
             file
-              ? "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/30 hover:shadow-blue-700/40 hover:-translate-y-0.5"
+              ? "bg-green-700 hover:bg-green-600 text-white shadow-lg shadow-green-900/30 hover:shadow-green-800/40 hover:-translate-y-0.5"
               : "bg-slate-800 text-slate-500 cursor-not-allowed"
           )}
         >

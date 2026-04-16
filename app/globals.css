@@ -6,8 +6,8 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 2, 6, 23;
-  --background-end-rgb: 15, 23, 42;
+  --background-start-rgb: 2, 10, 5;
+  --background-end-rgb: 5, 20, 10;
 }
 
 html {
@@ -27,7 +27,7 @@ body {
 
 @layer components {
   .btn-primary {
-    @apply bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 inline-flex items-center gap-2 shadow-lg shadow-blue-900/30 hover:shadow-blue-700/40 hover:-translate-y-0.5;
+    @apply bg-green-700 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-xl transition-all duration-200 inline-flex items-center gap-2 shadow-lg shadow-green-900/40 hover:shadow-green-800/50 hover:-translate-y-0.5;
   }
 
   .btn-secondary {
@@ -63,7 +63,7 @@ body {
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-green-400 to-amber-400 bg-clip-text text-transparent;
   }
 }
 
@@ -72,12 +72,12 @@ body {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #0a1a0e;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #1a4a28;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #22623a;
 }
