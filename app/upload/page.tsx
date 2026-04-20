@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/navigation";
 import {
@@ -14,6 +14,7 @@ import {
   CheckCircle2,
   AlertCircle,
   X,
+  Sparkles,
 } from "lucide-react";
 import clsx from "clsx";
 
@@ -57,14 +58,7 @@ const DOC_TYPES = [
 ] as const;
 
 type DocTypeId = (typeof DOC_TYPES)[number]["id"];
-
-type AnalysisState = "idle" | "reading" | "analyzing" | "done" | "error";
-
-const ANALYSIS_STEPS = [
-  { id: "reading", label: "Reading your document with GPT-4 Vision..." },
-  { id: "analyzing", label: "Auditing for red flags and billing errors..." },
-  { id: "drafting", label: "Drafting your personalized dispute letter..." },
-];
+type AnalysisState = "idle" | "streaming" | "analyzing" | "done" | "error";
 
 export default function UploadPage() {
   const router = useRouter();
@@ -72,8 +66,10 @@ export default function UploadPage() {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [state, setState] = useState<AnalysisState>("idle");
-  const [stepIndex, setStepIndex] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [streamingText, setStreamingText] = useState("");
+  const [streamDone, setStreamDone] = useState(false);
+  const streamingRef = useRef<HTMLDivElement>(null);
 
   const onDrop = useCallback((accepted: File[]) => {
     const f = accepted[0];
@@ -87,7 +83,7 @@ export default function UploadPage() {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: { "image/*": [".jpg", ".jpeg", ".png", ".webp", ".heic"], "application/pdf": [".pdf"] },
+    accept: { "image/*": [".jpg", ".jpeg", ".png", ".webp", ".heic"] },
     maxSize: 10 * 1024 * 1024,
     multiple: false,
     onDropRejected: (rejections) => {
@@ -105,64 +101,79 @@ export default function UploadPage() {
   const handleSubmit = async () => {
     if (!file || !preview) return;
 
-    setState("reading");
-    setStepIndex(0);
+    setState("streaming");
+    setStreamingText("");
+    setStreamDone(false);
     setError(null);
 
-    // Simulate step progression during API call
-    const stepTimer1 = setTimeout(() => setStepIndex(1), 3000);
-    const stepTimer2 = setTimeout(() => setStepIndex(2), 7000);
+    const base64 = preview.split(",")[1];
+    const mimeType = preview.split(";")[0].split(":")[1];
+    const payload = { image: base64, mimeType, documentType: docType, fileName: file.name };
 
-    try {
-      // Extract base64 data from data URL
-      const base64 = preview.split(",")[1];
-      const mimeType = preview.split(";")[0].split(":")[1];
+    // Run streaming narrative + structured analysis in parallel
+    const streamPromise = (async () => {
+      try {
+        const res = await fetch("/api/analyze-stream", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok || !res.body) return;
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const chunk = decoder.decode(value, { stream: true });
+          setStreamingText((prev) => prev + chunk);
+          // Auto-scroll the streaming box
+          if (streamingRef.current) {
+            streamingRef.current.scrollTop = streamingRef.current.scrollHeight;
+          }
+        }
+      } catch {
+        // streaming failed silently — JSON analysis still runs
+      } finally {
+        setStreamDone(true);
+      }
+    })();
 
-      const response = await fetch("/api/analyze", {
+    const jsonPromise = (async () => {
+      const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          image: base64,
-          mimeType,
-          documentType: docType,
-          fileName: file.name,
-        }),
+        body: JSON.stringify(payload),
       });
-
-      clearTimeout(stepTimer1);
-      clearTimeout(stepTimer2);
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        throw new Error(data.error ?? `Server error: ${response.status}`);
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error ?? `Server error: ${res.status}`);
       }
+      return res.json();
+    })();
 
-      const result = await response.json();
+    try {
+      // Wait for both to complete
+      const [, result] = await Promise.all([streamPromise, jsonPromise]);
 
-      // Store result in sessionStorage and navigate to results
       sessionStorage.setItem("fairprint_result", JSON.stringify(result));
       sessionStorage.setItem("fairprint_doc_type", docType);
       sessionStorage.setItem("fairprint_file_name", file.name);
 
       setState("done");
-      setTimeout(() => router.push("/results"), 800);
+      setTimeout(() => router.push("/results"), 1500);
     } catch (err: unknown) {
-      clearTimeout(stepTimer1);
-      clearTimeout(stepTimer2);
       setState("error");
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
     }
   };
 
-  const isLoading = state === "reading" || state === "analyzing";
+  const isLoading = state === "streaming" || state === "analyzing";
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-16">
       {/* Header */}
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-extrabold text-white mb-3">
-          Analyze Your Document
-        </h1>
+        <h1 className="text-4xl font-extrabold text-white mb-3">Analyze Your Document</h1>
         <p className="text-zinc-400 text-lg">
           Upload a photo or scan and our AI will audit it for red flags in seconds.
         </p>
@@ -171,12 +182,9 @@ export default function UploadPage() {
       {/* Step 1: Document Type */}
       <div className="mb-8">
         <h2 className="text-white font-semibold text-lg mb-4 flex items-center gap-2">
-          <span className="bg-orange-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
-            1
-          </span>
+          <span className="bg-orange-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">1</span>
           What type of document is this?
         </h2>
-
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {DOC_TYPES.map(({ id, icon: Icon, label, description, color, border, bg }) => (
             <button
@@ -185,18 +193,14 @@ export default function UploadPage() {
               disabled={isLoading}
               className={clsx(
                 "relative p-4 rounded-xl border-2 text-left transition-all duration-200 hover:-translate-y-0.5",
-                docType === id
-                  ? `${border} ${bg}`
-                  : "border-zinc-800 bg-zinc-900 hover:border-zinc-600"
+                docType === id ? `${border} ${bg}` : "border-zinc-800 bg-zinc-900 hover:border-zinc-600"
               )}
             >
               {docType === id && (
                 <CheckCircle2 className={`absolute top-2 right-2 w-4 h-4 ${color}`} />
               )}
               <Icon className={`w-6 h-6 ${docType === id ? color : "text-zinc-500"} mb-2`} />
-              <div className={`font-semibold text-sm ${docType === id ? "text-white" : "text-zinc-300"}`}>
-                {label}
-              </div>
+              <div className={`font-semibold text-sm ${docType === id ? "text-white" : "text-zinc-300"}`}>{label}</div>
               <div className="text-zinc-500 text-xs mt-0.5 leading-tight">{description}</div>
             </button>
           ))}
@@ -206,9 +210,7 @@ export default function UploadPage() {
       {/* Step 2: Upload */}
       <div className="mb-8">
         <h2 className="text-white font-semibold text-lg mb-4 flex items-center gap-2">
-          <span className="bg-orange-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
-            2
-          </span>
+          <span className="bg-orange-600 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">2</span>
           Upload your document
         </h2>
 
@@ -232,9 +234,7 @@ export default function UploadPage() {
               {isDragActive ? "Drop it here!" : "Drag & drop your document"}
             </p>
             <p className="text-zinc-400 text-sm mb-4">or click to browse your files</p>
-            <p className="text-zinc-600 text-xs">
-              Supports JPG, PNG, WEBP, HEIC, PDF · Max 10MB
-            </p>
+            <p className="text-zinc-600 text-xs">Supports JPG, PNG, WEBP, HEIC · Max 10MB</p>
           </div>
         ) : (
           <div className="card border-zinc-700">
@@ -259,12 +259,7 @@ export default function UploadPage() {
                       {(file.size / 1024 / 1024).toFixed(2)} MB · Ready to analyze
                     </p>
                   </div>
-                  <button
-                    onClick={clearFile}
-                    disabled={isLoading}
-                    className="text-zinc-500 hover:text-white transition-colors p-1"
-                    aria-label="Remove file"
-                  >
+                  <button onClick={clearFile} disabled={isLoading} className="text-zinc-500 hover:text-white transition-colors p-1">
                     <X className="w-5 h-5" />
                   </button>
                 </div>
@@ -277,7 +272,7 @@ export default function UploadPage() {
           </div>
         )}
 
-        {error && (
+        {error && state !== "error" && (
           <div className="mt-3 flex items-center gap-2 text-orange-400 text-sm">
             <AlertCircle className="w-4 h-4 shrink-0" />
             {error}
@@ -285,37 +280,47 @@ export default function UploadPage() {
         )}
       </div>
 
-      {/* Loading / Progress */}
-      {isLoading && (
-        <div className="card border-orange-500/30 bg-orange-500/5 mb-8 animate-fade-in">
-          <div className="flex flex-col items-center text-center py-4">
-            <Loader2 className="w-10 h-10 text-orange-400 animate-spin mb-4" />
-            <p className="text-white font-semibold text-lg mb-6">
-              Your AI advocate is working...
-            </p>
-            <div className="w-full max-w-sm space-y-3">
-              {ANALYSIS_STEPS.map(({ id, label }, i) => (
-                <div
-                  key={id}
-                  className={clsx(
-                    "flex items-center gap-3 text-sm transition-all duration-500",
-                    i < stepIndex
-                      ? "text-amber-300"
-                      : i === stepIndex
-                      ? "text-white"
-                      : "text-zinc-600"
-                  )}
-                >
-                  {i < stepIndex ? (
-                    <CheckCircle2 className="w-4 h-4 shrink-0" />
-                  ) : i === stepIndex ? (
-                    <Loader2 className="w-4 h-4 shrink-0 animate-spin" />
-                  ) : (
-                    <div className="w-4 h-4 rounded-full border border-zinc-700 shrink-0" />
-                  )}
-                  {label}
+      {/* ── Streaming Analysis Display ── */}
+      {(state === "streaming" || state === "done") && (
+        <div className="mb-8 animate-fade-in">
+          <div className="card border-orange-500/20 bg-zinc-900/80 p-0 overflow-hidden">
+            {/* Header */}
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-zinc-800 bg-orange-500/5">
+              <div className="relative">
+                <div className="w-7 h-7 rounded-full bg-orange-600 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-white" />
                 </div>
-              ))}
+                {!streamDone && (
+                  <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-zinc-900 animate-pulse" />
+                )}
+              </div>
+              <div>
+                <div className="text-white text-sm font-semibold">FairPrint AI</div>
+                <div className="text-xs text-zinc-500">
+                  {streamDone ? "Scan complete — building battle plan..." : "Scanning your document live..."}
+                </div>
+              </div>
+              {!streamDone && (
+                <div className="ml-auto flex gap-0.5">
+                  <span className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                  <span className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                  <span className="w-1.5 h-1.5 bg-orange-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                </div>
+              )}
+              {streamDone && <Loader2 className="ml-auto w-4 h-4 text-orange-400 animate-spin" />}
+            </div>
+
+            {/* Streaming text */}
+            <div
+              ref={streamingRef}
+              className="px-5 py-4 max-h-48 overflow-y-auto"
+            >
+              <p className="text-zinc-300 text-sm leading-relaxed whitespace-pre-wrap">
+                {streamingText}
+                {!streamDone && (
+                  <span className="inline-block w-0.5 h-4 bg-orange-400 ml-0.5 animate-pulse align-middle" />
+                )}
+              </p>
             </div>
           </div>
         </div>
@@ -326,6 +331,17 @@ export default function UploadPage() {
         <div className="card border-amber-400/30 bg-amber-400/5 mb-8 text-center animate-fade-in">
           <CheckCircle2 className="w-10 h-10 text-amber-300 mx-auto mb-3" />
           <p className="text-amber-300 font-semibold">Analysis complete! Redirecting to your Battle Plan...</p>
+        </div>
+      )}
+
+      {/* Error state */}
+      {state === "error" && error && (
+        <div className="card border-red-500/30 bg-red-500/5 mb-8 flex items-start gap-3">
+          <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+          <div>
+            <p className="text-red-300 font-semibold text-sm">Analysis failed</p>
+            <p className="text-zinc-400 text-sm mt-1">{error}</p>
+          </div>
         </div>
       )}
 
@@ -345,7 +361,6 @@ export default function UploadPage() {
         </button>
       )}
 
-      {/* Privacy note */}
       <p className="text-zinc-600 text-xs text-center mt-4 leading-relaxed">
         Your document is sent securely to OpenAI&apos;s API and is not stored by FairPrint.
         Redact any sensitive personal info (SSN, account numbers) before uploading.

@@ -19,10 +19,12 @@ import {
   BookmarkCheck,
   BarChart2,
   TrendingUp,
+  Phone,
 } from "lucide-react";
 import clsx from "clsx";
 import HealthScoreGauge from "@/components/HealthScoreGauge";
 import DocumentChat from "@/components/DocumentChat";
+import LetterSequence from "@/components/LetterSequence";
 import { FEATURED_COMPARISONS, NATIONAL_AVERAGES } from "@/lib/nationalAverages";
 
 interface RedFlag {
@@ -423,6 +425,29 @@ export default function ResultsPage() {
           professional before sending. FairPrint is not a law firm and does not provide legal advice.
         </p>
       </section>
+
+      {/* ── Escalating Letter Sequence ───────────────────────────────────── */}
+      <LetterSequence
+        analysisContext={JSON.stringify(result)}
+        documentType={docType}
+      />
+
+      {/* ── Negotiation Coach CTA ─────────────────────────────────────────── */}
+      <div className="card border-amber-500/20 bg-amber-500/5 flex flex-wrap items-center justify-between gap-4 mb-10">
+        <div>
+          <div className="flex items-center gap-2 text-amber-400 text-sm font-bold mb-1">
+            <Phone className="w-4 h-4" />
+            Negotiation Coach
+          </div>
+          <p className="text-zinc-300 text-sm">
+            Practice the phone call before you make it. GPT plays the billing rep — you practice your arguments and get real-time coaching.
+          </p>
+        </div>
+        <Link href="/negotiate" className="btn-primary text-sm py-2 px-5 shrink-0">
+          <Phone className="w-4 h-4" />
+          Practice Call
+        </Link>
+      </div>
 
       {/* ── AI Chat ──────────────────────────────────────────────────────── */}
       <DocumentChat
