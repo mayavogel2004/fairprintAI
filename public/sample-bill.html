@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riverside General Hospital — Patient Statement</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      color: #1a1a1a;
+      background: #fff;
+      padding: 40px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 3px solid #003366;
+      padding-bottom: 16px;
+      margin-bottom: 20px;
+    }
+    .hospital-name {
+      font-size: 22px;
+      font-weight: bold;
+      color: #003366;
+      letter-spacing: -0.5px;
+    }
+    .hospital-sub {
+      font-size: 11px;
+      color: #555;
+      margin-top: 3px;
+    }
+    .statement-label {
+      text-align: right;
+    }
+    .statement-label .title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #003366;
+    }
+    .statement-label .date {
+      font-size: 11px;
+      color: #555;
+      margin-top: 4px;
+    }
+
+    /* Patient & Account info */
+    .info-row {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+    .info-box {
+      flex: 1;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 12px;
+    }
+    .info-box .label {
+      font-size: 10px;
+      font-weight: bold;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .info-box p {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #222;
+    }
+    .info-box .highlight {
+      font-weight: bold;
+      font-size: 13px;
+      color: #003366;
+    }
+
+    /* Itemized charges table */
+    .section-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #003366;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #003366;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+      margin-top: 24px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 6px;
+    }
+    thead th {
+      background-color: #003366;
+      color: #fff;
+      font-size: 11px;
+      font-weight: bold;
+      text-align: left;
+      padding: 8px 10px;
+    }
+    tbody tr {
+      border-bottom: 1px solid #e0e0e0;
+    }
+    tbody tr:nth-child(even) {
+      background: #f7f9fc;
+    }
+    tbody td {
+      padding: 8px 10px;
+      font-size: 11.5px;
+      color: #222;
+      vertical-align: top;
+    }
+    .amount {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* Duplicate warning highlight */
+    .dup-row {
+      background: #fff8e1 !important;
+    }
+    .dup-badge {
+      display: inline-block;
+      background: #ffc107;
+      color: #333;
+      font-size: 9px;
+      font-weight: bold;
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-left: 6px;
+      vertical-align: middle;
+      letter-spacing: 0.3px;
+    }
+
+    /* Totals */
+    .totals-wrap {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+    .totals-table {
+      width: 280px;
+    }
+    .totals-table td {
+      padding: 5px 10px;
+      font-size: 12px;
+    }
+    .totals-table tr.divider td {
+      border-top: 1px solid #ccc;
+      padding-top: 8px;
+    }
+    .totals-table .total-label { color: #555; }
+    .totals-table .total-amount { text-align: right; font-weight: bold; }
+    .totals-table .grand-total td {
+      background: #003366;
+      color: #fff;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 2px;
+    }
+    .totals-table .grand-total .total-amount { text-align: right; }
+
+    /* Insurance summary */
+    .insurance-summary {
+      margin-top: 24px;
+      padding: 12px;
+      background: #f0f4f9;
+      border-left: 4px solid #003366;
+      border-radius: 2px;
+      font-size: 11.5px;
+      line-height: 1.7;
+    }
+    .insurance-summary strong { color: #003366; }
+
+    /* Notice */
+    .notice {
+      margin-top: 24px;
+      padding: 12px;
+      border: 1px solid #ffc107;
+      background: #fffde7;
+      border-radius: 4px;
+      font-size: 11px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .notice strong { color: #b8860b; }
+
+    /* Footer */
+    .footer {
+      margin-top: 30px;
+      border-top: 1px solid #ccc;
+      padding-top: 12px;
+      font-size: 10px;
+      color: #888;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media print {
+      body { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div class="hospital-name">Riverside General Hospital</div>
+      <div class="hospital-sub">
+        1200 Medical Center Drive, Suite 400 · New Orleans, LA 70112<br>
+        Tel: (504) 555-0188 · Fax: (504) 555-0189 · Tax ID: 72-3847291
+      </div>
+    </div>
+    <div class="statement-label">
+      <div class="title">PATIENT STATEMENT</div>
+      <div class="date">Statement Date: March 28, 2025<br>Account #: 0047-8831-02</div>
+    </div>
+  </div>
+
+  <!-- Patient + Insurance Info -->
+  <div class="info-row">
+    <div class="info-box">
+      <div class="label">Patient Information</div>
+      <p>
+        <span class="highlight">Jane E. Doe</span><br>
+        DOB: 06/14/1983 &nbsp;|&nbsp; MRN: RGH-883241<br>
+        4417 Magnolia St, New Orleans, LA 70115<br>
+        Tel: (504) 555-0244
+      </p>
+    </div>
+    <div class="info-box">
+      <div class="label">Visit Information</div>
+      <p>
+        <span class="highlight">Inpatient Admission</span><br>
+        Admit Date: April 12, 2025<br>
+        Discharge Date: April 14, 2025<br>
+        Attending: Dr. Marcus R. Webb, MD
+      </p>
+    </div>
+    <div class="info-box">
+      <div class="label">Insurance On File</div>
+      <p>
+        <span class="highlight">BlueCross BlueShield LA</span><br>
+        Member ID: XZY-881-0044-02<br>
+        Group #: 77203<br>
+        Claim #: BCB-2025-04-88312
+      </p>
+    </div>
+  </div>
+
+  <!-- Itemized Charges -->
+  <div class="section-title">Itemized Charges</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:90px;">Date of Svc</th>
+        <th style="width:80px;">CPT / Code</th>
+        <th>Description</th>
+        <th style="width:60px;">Qty</th>
+        <th style="width:90px;" class="amount">Unit Price</th>
+        <th style="width:100px;" class="amount">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Day 1 -->
+      <tr>
+        <td>04/12/2025</td>
+        <td>0100</td>
+        <td>Emergency Department — Level 4 Visit (99284)</td>
+        <td>1</td>
+        <td class="amount">$1,240.00</td>
+        <td class="amount">$1,240.00</td>
+      </tr>
+      <tr class="dup-row">
+        <td>04/12/2025</td>
+        <td>0120</td>
+        <td>
+          Room &amp; Board — Medical/Surgical, Semi-Private
+          <span class="dup-badge">DUPLICATE?</span>
+        </td>
+        <td>1</td>
+        <td class="amount">$1,840.00</td>
+        <td class="amount">$1,840.00</td>
+      </tr>
+      <tr>
+        <td>04/12/2025</td>
+        <td>0270</td>
+        <td>IV Setup &amp; Administration (1st hour)</td>
+        <td>1</td>
+        <td class="amount">$320.00</td>
+        <td class="amount">$320.00</td>
+      </tr>
+      <tr>
+        <td>04/12/2025</td>
+        <td>0636</td>
+        <td>Pharmaceutical — Ondansetron 4mg IV (Zofran)</td>
+        <td>2</td>
+        <td class="amount">$48.00</td>
+        <td class="amount">$96.00</td>
+      </tr>
+      <tr>
+        <td>04/12/2025</td>
+        <td>0636</td>
+        <td>Pharmaceutical — Ketorolac 30mg IV (Toradol)</td>
+        <td>1</td>
+        <td class="amount">$62.00</td>
+        <td class="amount">$62.00</td>
+      </tr>
+
+      <!-- Day 2 -->
+      <tr>
+        <td>04/13/2025</td>
+        <td>0301</td>
+        <td>Laboratory — Comprehensive Metabolic Panel (80053)</td>
+        <td>1</td>
+        <td class="amount">$215.00</td>
+        <td class="amount">$215.00</td>
+      </tr>
+      <tr>
+        <td>04/13/2025</td>
+        <td>0350</td>
+        <td>CT Scan — Abdomen &amp; Pelvis with contrast (74177)</td>
+        <td>1</td>
+        <td class="amount">$4,800.00</td>
+        <td class="amount">$4,800.00</td>
+      </tr>
+      <tr class="dup-row">
+        <td>04/13/2025</td>
+        <td>0120</td>
+        <td>
+          Room &amp; Board — Medical/Surgical, Semi-Private
+          <span class="dup-badge">DUPLICATE?</span>
+        </td>
+        <td>1</td>
+        <td class="amount">$1,840.00</td>
+        <td class="amount">$1,840.00</td>
+      </tr>
+      <tr>
+        <td>04/13/2025</td>
+        <td>0730</td>
+        <td>EKG — 12-Lead Electrocardiogram (93000)</td>
+        <td>1</td>
+        <td class="amount">$185.00</td>
+        <td class="amount">$185.00</td>
+      </tr>
+      <tr>
+        <td>04/13/2025</td>
+        <td>0636</td>
+        <td>Pharmaceutical — Morphine Sulfate 4mg IV</td>
+        <td>3</td>
+        <td class="amount">$55.00</td>
+        <td class="amount">$165.00</td>
+      </tr>
+      <tr>
+        <td>04/13/2025</td>
+        <td>0272</td>
+        <td>IV Supplies — Saline Flush Kit x2</td>
+        <td>2</td>
+        <td class="amount">$38.00</td>
+        <td class="amount">$76.00</td>
+      </tr>
+
+      <!-- Day 3 / Discharge -->
+      <tr>
+        <td>04/14/2025</td>
+        <td>0301</td>
+        <td>Laboratory — Complete Blood Count with Differential (85025)</td>
+        <td>1</td>
+        <td class="amount">$145.00</td>
+        <td class="amount">$145.00</td>
+      </tr>
+      <tr>
+        <td>04/14/2025</td>
+        <td>0450</td>
+        <td>Pulmonary Function — Respiratory Therapy Consult</td>
+        <td>1</td>
+        <td class="amount">$280.00</td>
+        <td class="amount">$280.00</td>
+      </tr>
+      <tr>
+        <td>04/14/2025</td>
+        <td>0100</td>
+        <td>Physician — Hospital Discharge Day Management &gt;30 min (99238)</td>
+        <td>1</td>
+        <td class="amount">$310.00</td>
+        <td class="amount">$310.00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Totals -->
+  <div class="totals-wrap">
+    <table class="totals-table">
+      <tr>
+        <td class="total-label">Subtotal (Charges)</td>
+        <td class="total-amount">$11,574.00</td>
+      </tr>
+      <tr>
+        <td class="total-label">Insurance Adjustment (BCBS)</td>
+        <td class="total-amount" style="color:#c0392b;">− $4,820.00</td>
+      </tr>
+      <tr class="divider">
+        <td class="total-label">Insurance Payment (BCBS)</td>
+        <td class="total-amount" style="color:#27ae60;">− $4,188.00</td>
+      </tr>
+      <tr>
+        <td class="total-label">Deductible Applied</td>
+        <td class="total-amount">$750.00</td>
+      </tr>
+      <tr>
+        <td class="total-label">Coinsurance (20%)</td>
+        <td class="total-amount">$323.20</td>
+      </tr>
+      <tr class="grand-total">
+        <td>AMOUNT DUE</td>
+        <td class="total-amount">$2,542.20</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Insurance Summary -->
+  <div class="insurance-summary">
+    <strong>Insurance Claim Summary:</strong> Claim submitted to BlueCross BlueShield LA on 04/18/2025.
+    Primary EOB received 04/25/2025. Claim processed under Plan Year 2025 benefits.
+    Remaining deductible prior to admission: $750.00. Out-of-pocket maximum: $6,000.00 individual.
+    Current OOP balance after this claim: $1,073.20.
+  </div>
+
+  <!-- Notice -->
+  <div class="notice">
+    <strong>⚠ Please review your bill carefully.</strong> If you believe any charges are incorrect or you
+    would like an itemized explanation of any line item, please contact our Patient Billing Office at
+    <strong>(504) 555-0199</strong> or billing@riversidegeneral.example within <strong>90 days</strong>
+    of the statement date. You have the right to request a complete itemized bill at no charge.
+    Financial assistance programs may be available — ask about our Charity Care Program.
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>Riverside General Hospital &nbsp;·&nbsp; Patient Billing Dept. &nbsp;·&nbsp; PO Box 44100, New Orleans, LA 70112</span>
+    <span>Page 1 of 1 &nbsp;·&nbsp; Account #0047-8831-02</span>
+  </div>
+
+</body>
+</html>
