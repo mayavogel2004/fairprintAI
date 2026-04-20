@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Font Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@700;800;900&family=Montserrat:wght@700;800;900&family=Raleway:wght@700;800;900&family=Work+Sans:wght@700;800;900&family=Bebas+Neue&family=Anton&family=Oswald:wght@600;700&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #080808; padding: 40px; font-family: sans-serif; }
+    .title { color:#71717a; font-family:sans-serif; font-size:12px; margin-bottom:24px; letter-spacing:1px; text-transform:uppercase; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .card {
+      background: #111; border: 1px solid #222; border-radius: 16px;
+      padding: 28px 32px 24px; position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px; background: rgba(249,115,22,0.07);
+      border-radius: 50%; filter: blur(40px);
+    }
+    .label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #f97316; margin-bottom: 10px; font-family: sans-serif; }
+    .heading { font-size: 44px; color: #fff; line-height: 1.1; margin-bottom: 10px; }
+    .sub { font-size: 13px; color: #71717a; font-family: sans-serif; }
+    .num { position: absolute; top: 14px; right: 18px; font-size: 11px; color: #3f3f46; font-family: monospace; }
+    .orange { color: #f97316; }
+    .gradient { background: linear-gradient(90deg, #fff 0%, #f97316 60%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  </style>
+</head>
+<body>
+  <div class="title">FairPrint — New Font Options for "Your Battle Plan"</div>
+  <div class="grid">
+
+    <div class="card">
+      <span class="num">Option 1</span>
+      <div class="label">Barlow — Bold & Impactful</div>
+      <div class="heading" style="font-family:'Barlow',sans-serif; font-weight:900; letter-spacing:-1px;">Your Battle Plan</div>
+      <div class="sub">Condensed power. Strong, serious, commanding.</div>
+    </div>
+
+    <div class="card">
+      <span class="num">Option 2</span>
+      <div class="label">Montserrat — Classic Bold</div>
+      <div class="heading" style="font-family:'Montserrat',sans-serif; font-weight:900; letter-spacing:-1.5px;">Your Battle Plan</div>
+      <div class="sub">Classic and clean. Universally trusted.</div>
+    </div>
+
+    <div class="card">
+      <span class="num">Option 3</span>
+      <div class="label">Raleway — Elegant & Strong</div>
+      <div class="heading" style="font-family:'Raleway',sans-serif; font-weight:900; letter-spacing:-1px;">Your Battle Plan</div>
+      <div class="sub">Elegant but punchy. Feels premium and sharp.</div>
+    </div>
+
+    <div class="card">
+      <span class="num">Option 4</span>
+      <div class="label">Work Sans — Sharp & Clean</div>
+      <div class="heading" style="font-family:'Work Sans',sans-serif; font-weight:900; letter-spacing:-2px;">Your Battle Plan</div>
+      <div class="sub">Tight-tracked, sharp edges. Very modern tech feel.</div>
+    </div>
+
+    <div class="card">
+      <span class="num">Option 5</span>
+      <div class="label">Bebas Neue — Maximum Impact</div>
+      <div class="heading" style="font-family:'Bebas Neue',sans-serif; font-weight:400; font-size:56px; letter-spacing:2px;">Your Battle Plan</div>
+      <div class="sub">All-caps, massive presence. Bold statement.</div>
+    </div>
+
+    <div class="card">
+      <span class="num">Option 6</span>
+      <div class="label">Oswald — Editorial Authority</div>
+      <div class="heading" style="font-family:'Oswald',sans-serif; font-weight:700; font-size:50px; letter-spacing:1px;">Your Battle Plan</div>
+      <div class="sub">Narrow, authoritative. Like a newspaper headline.</div>
+    </div>
+
+    <div class="card">
+      <span class="num">Option 7</span>
+      <div class="label">Montserrat — Orange Accent</div>
+      <div class="heading" style="font-family:'Montserrat',sans-serif; font-weight:900; letter-spacing:-1.5px;">Your <span class="orange">Battle</span> Plan</div>
+      <div class="sub">Montserrat with orange accent word. Very dynamic.</div>
+    </div>
+
+    <div class="card">
+      <span class="num">Option 8</span>
+      <div class="label">Barlow — White to Orange Gradient</div>
+      <div class="heading" style="font-family:'Barlow',sans-serif; font-weight:900; letter-spacing:-1px;" class="gradient"><span class="gradient">Your Battle Plan</span></div>
+      <div class="sub">Barlow with a white-to-orange gradient fade.</div>
+    </div>
+
+  </div>
+</body>
+</html>
