@@ -6,21 +6,6 @@ import { useState } from "react";
 import { Menu, X, Shield } from "lucide-react";
 import clsx from "clsx";
 
-// Conditionally import Clerk components only when key is present
-const hasClerk = !!(process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
-
-let SignedIn: React.ComponentType<{ children: React.ReactNode }> = ({ children }) => <>{children}</>;
-let SignedOut: React.ComponentType<{ children: React.ReactNode }> = () => null;
-let UserButton: React.ComponentType<{ afterSignOutUrl?: string }> = () => null;
-
-if (hasClerk) {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const clerk = require("@clerk/nextjs");
-  SignedIn = clerk.SignedIn;
-  SignedOut = clerk.SignedOut;
-  UserButton = clerk.UserButton;
-}
-
 const links = [
   { href: "/", label: "Home" },
   { href: "/upload", label: "Analyze Document" },
@@ -69,33 +54,17 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right side — auth */}
+          {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            {hasClerk ? (
-              <>
-                <SignedOut>
-                  <Link href="/sign-in" className="text-zinc-300 hover:text-white text-sm font-medium transition-colors">
-                    Sign in
-                  </Link>
-                  <Link href="/sign-up" className="btn-primary text-sm py-2 px-4">
-                    Get Started Free
-                  </Link>
-                </SignedOut>
-                <SignedIn>
-                  <Link href="/upload" className="btn-primary text-sm py-2 px-4">
-                    Analyze Document
-                  </Link>
-                  <UserButton afterSignOutUrl="/" />
-                </SignedIn>
-              </>
-            ) : (
-              <Link href="/upload" className="btn-primary text-sm py-2 px-4">
-                Get Your Battle Plan
-              </Link>
-            )}
+            <Link href="/sign-in" className="text-zinc-300 hover:text-white text-sm font-medium transition-colors">
+              Sign in
+            </Link>
+            <Link href="/upload" className="btn-primary text-sm py-2 px-4">
+              Get Started Free
+            </Link>
           </div>
 
-          {/* Mobile menu toggle */}
+          {/* Mobile toggle */}
           <button
             className="lg:hidden text-zinc-400 hover:text-white"
             onClick={() => setOpen(!open)}
@@ -124,33 +93,13 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
-
           <div className="pt-2 border-t border-zinc-800 space-y-2">
-            {hasClerk ? (
-              <>
-                <SignedOut>
-                  <Link href="/sign-in" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800">
-                    Sign in
-                  </Link>
-                  <Link href="/sign-up" onClick={() => setOpen(false)} className="block btn-primary text-sm justify-center">
-                    Get Started Free
-                  </Link>
-                </SignedOut>
-                <SignedIn>
-                  <div className="flex items-center gap-3 px-4 py-2">
-                    <UserButton afterSignOutUrl="/" />
-                    <span className="text-zinc-400 text-sm">My Account</span>
-                  </div>
-                  <Link href="/upload" onClick={() => setOpen(false)} className="block btn-primary text-sm justify-center">
-                    Analyze Document
-                  </Link>
-                </SignedIn>
-              </>
-            ) : (
-              <Link href="/upload" onClick={() => setOpen(false)} className="block btn-primary text-sm justify-center">
-                Get Your Battle Plan
-              </Link>
-            )}
+            <Link href="/sign-in" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800">
+              Sign in
+            </Link>
+            <Link href="/upload" onClick={() => setOpen(false)} className="block btn-primary text-sm justify-center">
+              Get Started Free
+            </Link>
           </div>
         </div>
       )}
