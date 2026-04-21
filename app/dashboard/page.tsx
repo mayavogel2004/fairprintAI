@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useUser } from "@clerk/nextjs";
 import {
   LayoutDashboard,
   Plus,
@@ -73,6 +74,7 @@ function saveDisputes(disputes: Dispute[]) {
 }
 
 export default function DashboardPage() {
+  const { user, isSignedIn } = useUser();
   const [disputes, setDisputes] = useState<Dispute[]>([]);
   const [mounted, setMounted] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
@@ -118,6 +120,21 @@ export default function DashboardPage() {
     <div className="max-w-7xl mx-auto px-4 py-12">
       {/* Header */}
       <div className="mb-10">
+        {/* Welcome banner for signed-in users */}
+        {isSignedIn && user && (
+          <div className="flex items-center gap-3 mb-6 bg-orange-500/5 border border-orange-500/20 rounded-2xl px-5 py-4">
+            {user.imageUrl && (
+              <img src={user.imageUrl} alt={user.firstName ?? "User"} className="w-10 h-10 rounded-full ring-2 ring-orange-500/30" />
+            )}
+            <div>
+              <p className="text-white font-semibold text-base">
+                Welcome back, {user.firstName ?? user.emailAddresses[0]?.emailAddress ?? "there"} 👋
+              </p>
+              <p className="text-zinc-400 text-sm">Your disputes and analyses are saved below.</p>
+            </div>
+          </div>
+        )}
+
         <div className="flex items-center gap-3 mb-3">
           <div className="bg-orange-600 rounded-lg p-2">
             <LayoutDashboard className="w-5 h-5 text-white" />

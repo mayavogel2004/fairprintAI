@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X, Shield } from "lucide-react";
 import clsx from "clsx";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 
 const links = [
   { href: "/", label: "Home" },
@@ -56,12 +57,27 @@ export default function Navbar() {
 
           {/* CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link href="/sign-in" className="text-zinc-300 hover:text-white text-sm font-medium transition-colors">
-              Sign in
-            </Link>
-            <Link href="/upload" className="btn-primary text-sm py-2 px-4">
-              Get Started Free
-            </Link>
+            <SignedOut>
+              <Link href="/sign-in" className="text-zinc-300 hover:text-white text-sm font-medium transition-colors">
+                Sign in
+              </Link>
+              <Link href="/upload" className="btn-primary text-sm py-2 px-4">
+                Get Started Free
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <Link href="/upload" className="btn-primary text-sm py-2 px-4">
+                Analyze Document
+              </Link>
+              <UserButton afterSignOutUrl="/" appearance={{ elements: { avatarBox: "w-8 h-8" } }} />
+            </SignedIn>
+          </div>
+
+          {/* Mobile signed-in avatar */}
+          <div className="lg:hidden">
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" appearance={{ elements: { avatarBox: "w-8 h-8" } }} />
+            </SignedIn>
           </div>
 
           {/* Mobile toggle */}
@@ -94,12 +110,19 @@ export default function Navbar() {
             </Link>
           ))}
           <div className="pt-2 border-t border-zinc-800 space-y-2">
-            <Link href="/sign-in" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800">
-              Sign in
-            </Link>
-            <Link href="/upload" onClick={() => setOpen(false)} className="block btn-primary text-sm justify-center">
-              Get Started Free
-            </Link>
+            <SignedOut>
+              <Link href="/sign-in" onClick={() => setOpen(false)} className="block px-4 py-3 rounded-lg text-sm font-medium text-zinc-300 hover:text-white hover:bg-zinc-800">
+                Sign in
+              </Link>
+              <Link href="/upload" onClick={() => setOpen(false)} className="block btn-primary text-sm justify-center">
+                Get Started Free
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <Link href="/upload" onClick={() => setOpen(false)} className="block btn-primary text-sm justify-center">
+                Analyze Document
+              </Link>
+            </SignedIn>
           </div>
         </div>
       )}
