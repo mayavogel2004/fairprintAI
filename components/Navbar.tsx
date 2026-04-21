@@ -66,9 +66,6 @@ export default function Navbar() {
               </Link>
             </SignedOut>
             <SignedIn>
-              <Link href="/upload" className="btn-primary text-sm py-2 px-4">
-                Analyze Document
-              </Link>
               <UserButton afterSignOutUrl="/" appearance={{ elements: { avatarBox: "w-8 h-8" } }} />
             </SignedIn>
           </div>
@@ -118,11 +115,6 @@ export default function Navbar() {
                 Get Started Free
               </Link>
             </SignedOut>
-            <SignedIn>
-              <Link href="/upload" onClick={() => setOpen(false)} className="block btn-primary text-sm justify-center">
-                Analyze Document
-              </Link>
-            </SignedIn>
           </div>
         </div>
       )}
